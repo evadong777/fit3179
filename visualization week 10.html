@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2019,
+      "bind": {
+        "input": "range",
+        "min": 1990,
+        "max": 2019,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "vconcat": [
+    {
+      "title": "Number of deaths of Liver cancer around the world",
+      "width": "600",
+      "height": 400,
+      "projection": {"type": "equirectangular"},
+      "layer": [
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+            "format": {"type": "topojson", "feature": "oceans"}
+          },
+          "mark": {"type": "geoshape", "fill": "skyblue"}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/ne_110m_graticules_30.json",
+            "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+          },
+          "mark": {"type": "geoshape", "fill": "null", "stroke": "lightgray"}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+            "format": {
+              "type": "topojson",
+              "feature": "ne_110m_admin_0_countries"
+            }
+          },
+          "mark": {
+            "type": "geoshape",
+            "fill": "#ddd",
+            "stroke": "white",
+            "strokeWidth": 1
+          },
+          "transform": [
+            {
+              "calculate": "'Data is not available in ' + datum.properties.NAME",
+              "as": "note"
+            }
+          ],
+          "encoding": {"tooltip": {"field": "note"}}
+        },
+        {
+          "data": {
+            "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/cancer-deaths-by-type.csv"
+          },
+          "transform": [
+            {
+              "lookup": "Country",
+              "from": {
+                "data": {
+                  "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+                  "format": {
+                    "type": "topojson",
+                    "feature": "ne_110m_admin_0_countries"
+                  }
+                },
+                "key": "properties.NAME"
+              },
+              "as": "name"
+            },
+            {"filter": "datum.Year == Year_selection"}
+          ],
+          "mark": {"type": "geoshape", "stroke": "#fff", "strokeWidth": 0.5},
+          "encoding": {
+            "shape": {"field": "name", "type": "geojson"},
+            "color": {
+              "field": "Deaths of Liver cancer",
+              "type": "quantitative",
+              "title": "Deaths population",
+              "scale": {"domain": [0, 18000], "scheme": "reds"},
+              "legend": {"format": ".2s"}
+            },
+            "tooltip": [
+              {
+                "field": "Deaths of Liver cancer",
+                "type": "nominal",
+                "title": "Number of deaths"
+              },
+              {"field": "Country", "type": "nominal", "title": "country"},
+              {"field": "Year", "type": "quantitative", "title": "Year"}
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Number of deaths of Liver cancer around the world",
+      "width": "600",
+      "height": {"step": 17},
+      "data": {
+        "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/cancer-deaths-by-type.csv"
+      },
+      "transform": [{"filter": "datum.Year == Year_selection"}],
+      "mark": "bar",
+      "encoding": {
+        "y": {"field": "Country", "title": "Country name"},
+        "x": {"aggregate": "sum", "field": "Deaths of Liver cancer"}
+      }
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
