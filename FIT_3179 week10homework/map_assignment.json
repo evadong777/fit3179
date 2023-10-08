@@ -1,0 +1,124 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "params": [
+    {
+      "name": "Country_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "China",
+          "United States of America",
+          "Brazil",
+          "Australia",
+          "Canada"
+        ],
+        "labels": [
+          "Show All",
+          "China",
+          "United States of America",
+          "Brazil",
+          "Australia",
+          "Canada"
+        ],
+        "name": "Country Selection: "
+      }
+    },
+    {
+      "name": "Population_Above",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 100000000,
+        "step": 1000000,
+        "name": "Minimum Population: "
+      }
+    }
+  ],
+  "title": "Population of each country",
+  "width": "400",
+  "height": 300,
+  "projection": {"type": "equirectangular"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/ne_110m_graticules_30.json",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": "null", "stroke": "lightgray"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#ddd",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "encoding": {"tooltip": {"field": "note"}}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Fat_Supply_Quantity11.csv"
+      },
+      "transform": [
+        {
+          "lookup": "Country",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+              "format": {
+                "type": "topojson",
+                "feature": "ne_110m_admin_0_countries"
+              }
+            },
+            "key": "properties.NAME"
+          },
+          "as": "name"
+        },
+        {
+          "filter": "Country_selection == null || datum.Country == Country_selection"
+        },
+        {"filter": "datum.Population > Population_Above"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "#fff", "strokeWidth": 0.5},
+      "encoding": {
+        "text": {"field": "Population", "type": "quantitative"},
+        "shape": {"field": "name", "type": "geojson"},
+        "color": {
+          "field": "Population",
+          "type": "quantitative",
+          "title": "Total population of each country",
+          "scale": {"domain": [0, 350000000], "scheme": "reds"},
+          "legend": {"format": ".2s"}
+        },
+        "tooltip": [
+          {
+            "field": "Population",
+            "type": "quantitative",
+            "title": "Total populations"
+          },
+          {"field": "Country", "type": "nominal", "title": "Country Name"}
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
