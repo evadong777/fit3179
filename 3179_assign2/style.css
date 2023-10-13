@@ -1,0 +1,187 @@
+
+
+
+h1{
+    text-align: center;
+}
+
+#select1{
+    margin-left: 5vb;
+    text-align: center;
+}
+
+
+h2{
+      margin-left: 10vb;
+}
+#select2{
+    margin-left: 10vb;
+   width:600px
+}
+
+#select3{
+    position: relative;
+    left: 38px;
+   width:600px
+}
+
+
+.obesity_rate{
+    font-weight: bold;
+}
+
+.obesity_am{
+    font-weight: bold;
+}
+.obesity_1{
+    font-weight: bold;
+}
+.obesity_2{
+    font-weight: bold;
+}
+
+.obesity_3{
+    font-weight: bold;
+}
+.obesity_4{
+    font-weight: bold;
+}
+.obesity_5{
+    font-weight: bold;
+}
+#select6{
+
+  position: relative;
+  margin-left: 5vb;
+  border: 3px black;
+  width: 500px;
+}
+.obesity_7{
+    font-weight: bold;
+}
+
+.animal_1{
+    font-weight: bold;
+}
+.animal_2{
+    font-weight: bold;
+}
+
+.animal_3{
+    font-weight: bold;
+}
+.animal_4{
+    font-weight: bold;
+}
+.animal_5{
+    font-weight: bold;
+}
+
+.sugar_1{
+    font-weight: bold;
+}
+.sugar_2{
+    font-weight: bold;
+}
+
+.sugar_3{
+    font-weight: bold;
+}
+
+.fruit_1{
+    font-weight: bold;
+}
+
+
+.fruit_2{
+    font-weight: bold;
+}
+
+
+.fruit_3{
+    font-weight: bold;
+}
+
+.al_1{
+    font-weight: bold;
+}
+.al_2{
+    font-weight: bold;
+}
+.al_3{
+    font-weight: bold;
+}
+.al_4{
+    font-weight: bold;
+}
+
+.al_5{
+    font-weight: bold;
+}
+.al_6{
+    font-weight: bold;
+}
+.al_7{
+    font-weight: bold;
+}
+
+.al_8{
+    font-weight: bold;
+}
+#select3{
+    margin-left: 5vb;
+   width: 500px;
+}
+
+
+#vis1{
+
+    position: relative;
+    
+    left: 60px;
+
+}
+
+.vis-container{
+    position: relative;
+    left: 60px;
+}
+
+
+#vis2{
+     position: relative;
+   right: 180px;
+
+  
+}
+
+#vis3{
+
+    position: relative;
+    left: 600px
+}
+
+#vis4{
+  
+}
+
+#vis5{
+  
+
+  
+}
+
+#vis6{
+  
+     
+     left: 200px;
+  
+}
+#vis7{
+
+  
+}
+
+hr.solid {
+    border-top: 3px solid #bbb;
+  }

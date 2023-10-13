@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple radial chart with embedded data.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Food_Supply_kcal_Data1.csv"
+  },
+  "width": "400",
+  "height": 300,
+  "title": "Percentage of energy intake (kcal) from fruits",
+  "transform": [
+    {
+      "filter": {
+        "field": "Country",
+        "oneOf": [
+          "China",
+          "India",
+          "Australia",
+          "Brazil",
+          "United States of America",
+          "Canada",
+          "Indonesia"
+        ]
+      }
+    }
+  ],
+  "layer": [
+    {"mark": {"type": "arc", "innerRadius": 0, "stroke": "#fff"}},
+    {
+      "mark": {"type": "text", "radiusOffset": 15},
+      "encoding": {"text": {"field": "Fruits ", "type": "quantitative"}}
+    }
+  ],
+  "encoding": {
+    "theta": {"field": "Fruits ", "type": "quantitative", "stack": true},
+    "radius": {
+      "field": "Fruits ",
+      "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}
+    },
+    "color": {
+      "field": "Country",
+      "scale": {
+        "range": [
+          "#1f77b4",
+          "#ff7f0e",
+          "#ff7f86",
+          "#d62728",
+          "#9467bd",
+          "#8c564b",
+          "#a6cee3"
+        ]
+      },
+      "type": "nominal",
+      "legend": "Country",
+      "title": "Countries"
+    },
+    "tooltip": [
+      {"field": "Country", "type": "nominal", "title": "Country Name:"},
+      {
+        "field": "Fruits ",
+        "type": "quantitative",
+        "title": "Percentage of energy intake (kcal) from fruits: "
+      }
+    ]
+  },
+  "config": {}
+}
