@@ -1,0 +1,69 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A bar chart with highlighting on hover and selecting on click. (Inspired by Tableau's interaction style.)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Food_Supply_kcal_Data1.csv"
+  },
+  "title": "Energy intake from Seafood",
+  "width": 325,
+  "height": 150,
+  "params": [
+    {"name": "highlight", "select": {"type": "point", "on": "mouseover"}},
+    {"name": "select", "select": "point"}
+  ],
+  "transform": [
+    {
+      "filter": {
+        "field": "Country",
+        "oneOf": [
+          "China",
+          "India",
+          "Australia",
+          "Brazil",
+          "United States of America",
+          "Canada",
+          "Indonesia"
+        ]
+      }
+    }
+  ],
+  "mark": {"type": "bar", "stroke": "black", "cursor": "pointer"},
+  "encoding": {
+    "x": {"field": "Country", "type": "ordinal", "title": ""},
+    "y": {
+      "field": "Seafood",
+      "type": "quantitative",
+      "title": "Energy intake form seafood in %"
+    },
+    "fillOpacity": {"condition": {"param": "select", "value": 1}, "value": 0.3},
+    "color": {
+      "field": "Country",
+      "scale": {
+        "range": [
+          "#1f77b4",
+          "#ff7f0e",
+          "#ff7f86",
+          "#d62728",
+          "#9467bd",
+          "#8c564b",
+          "#a6cee3"
+        ]
+      },
+      "legend": "Country"
+    },
+    "strokeWidth": {
+      "condition": [
+        {"param": "select", "empty": false, "value": 2},
+        {"param": "highlight", "empty": false, "value": 1}
+      ],
+      "value": 0
+    },
+    "tooltip": [
+      {"field": "Country", "title": "Country Name:"},
+      {"field": "Seafood", "title": "Energy intake from Seafood in %: "}
+    ]
+  },
+  "config": {  "view": {
+     "stroke": "transparent"
+  }}
+}

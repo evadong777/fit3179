@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Food_Supply_kcal_Data1.csv"
+  },
+  "title": "Percentage of energy intake (kcal) from sugar & sweenterners",
+  "width": "400",
+  "height": 300,
+  "params": [
+    {
+      "name": "Country_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "China",
+          "United States of America",
+          "Brazil",
+          "Australia",
+          "Canada"
+        ],
+        "labels": [
+          "Show All",
+          "China",
+          "United States of America",
+          "Brazil",
+          "Australia",
+          "Canada"
+        ],
+        "name": "Country Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": {
+        "field": "Country",
+        "oneOf": [
+          "China",
+          "India",
+          "Australia",
+          "Brazil",
+          "United States of America",
+          "Canada",
+          "Indonesia"
+        ]
+      }
+    },
+    {
+      "filter": "Country_selection == null || datum.Country == Country_selection"
+    }
+  ],
+  "layer": [
+    {"mark": {"type": "arc", "innerRadius": 50, "stroke": "#fff"}}
+   
+  ],
+  "encoding": {
+    "theta": {"field": "Sugar & Sweeteners", "type": "quantitative"},
+    "color": {"field": "Country",  "scale": {
+      "range": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#ff7f86",
+        "#d62728",
+        "#9467bd",
+        "#8c564b",
+        "#a6cee3"
+      ]
+    },"type": "nominal", "title": "Countries"},
+    "tooltip": [
+      {"field": "Country", "type": "nominal", "title": "Country Name:"},
+      {
+        "field": "Sugar & Sweeteners",
+        "type": "quantitative",
+        "title": "Percentage of energy intake (kcal) from sugar & sweenterners: "
+      }
+    ]
+  },
+  "config": {}
+}
