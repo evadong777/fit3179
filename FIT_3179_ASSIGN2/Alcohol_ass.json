@@ -1,0 +1,126 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Food_Supply_kcal_Data1.csv"
+  },
+  "title": "Energy intake from Alcoholic Beverages",
+  "vconcat": [
+    {
+      "width": 200,
+      "height": 100,
+      "transform": [
+        {
+          "filter": {
+            "field": "Country",
+            "oneOf": [
+              "China",
+              "India",
+              "Australia",
+              "Brazil",
+              "United States of America",
+              "Canada",
+              "Indonesia"
+            ]
+          },
+          "scale": {"domain": {"param": "brush"}}
+        },
+        {"filter": {"param": "brush"}}
+      ],
+      "layer": [
+        {
+          "mark": {"type": "bar", "stroke": "black", "strokeWidth": 1},
+          "encoding": {
+            "x": {
+              "field": "Alcoholic Beverages",
+              "type": "quantitative",
+              "scale": {"domain": {"param": "brush"}},
+              "axis": {
+                "title": "Percentage of energy intake from Alcoholic Beverages"
+              }
+            },
+            "y": {"field": "Country", "type": "nominal"},
+            "color": {
+              "field": "Country",
+              "type": "nominal",
+              "scale": {
+                "range": [
+                  "#1f77b4",
+                  "#ff7f0e",
+                  "#2ca02c",
+                  "#d62728",
+                  "#9467bd",
+                  "#8c564b",
+                  "#a6cee3"
+                ]
+              },
+              "legend": {"title": "Countries"}
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 3
+          },
+          "encoding": {
+            "x": {
+              "field": "Alcoholic Beverages",
+              "type": "quantitative",
+              "axis": {"grid": false}
+            },
+            "y": {"field": "Country", "type": "nominal", "title": ""},
+            "text": {"field": "Alcoholic Beverages", "type": "quantitative"}
+          }
+        }
+      ]
+    },
+    {
+      "width": 250,
+      "height": 60,
+      "mark": "circle",
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "transform": [
+        {
+          "filter": {
+            "field": "Country",
+            "oneOf": [
+              "China",
+              "India",
+              "Australia",
+              "Brazil",
+              "United States of America",
+              "Canada",
+              "Indonesia"
+            ]
+          }
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Alcoholic Beverages",
+          "title": "Percentage of energy intake from Alcoholic Beverages",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "axis": {"tickCount": 3, "grid": false},
+          "title": ""
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal", "title": "Country Name:"},
+          {
+            "field": "Alcoholic Beverages",
+            "type": "quantitative",
+            "title": "Percentage of energy intake from Alcoholic Beverages (%)"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
