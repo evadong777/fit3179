@@ -1,0 +1,9 @@
+*{
+    margin: 5px;
+    box-sizing:border-box;
+}
+
+header{
+    background: plum;
+    padding: 2em 0 2 em 0;
+}

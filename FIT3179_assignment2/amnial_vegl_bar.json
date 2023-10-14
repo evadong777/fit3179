@@ -1,0 +1,177 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "beige",
+  "description": "Energy intake from animal product vs. vegetal products",
+  "data": {
+    "url": "https://raw.githubusercontent.com/evadong777/fit3179/main/Food_Supply_kcal_Data1.csv"
+  },
+  "title": "Energy intake from Animal product vs. Vegetal products",
+  "width": 300,
+  "height": 200,
+  "transform": [
+    {
+      "filter": {
+        "field": "Country",
+        "oneOf": [
+          "China",
+          "India",
+          "Australia",
+          "Brazil",
+          "United States of America",
+          "Canada",
+          "Indonesia"
+        ]
+      }
+    }
+  ],
+  "spacing": 0,
+  "hconcat": [
+    {
+      "transform": [
+        {
+          "filter": {
+            "field": "Country",
+            "oneOf": [
+              "China",
+              "India",
+              "Australia",
+              "Brazil",
+              "United States of America",
+              "Canada",
+              "Indonesia"
+            ]
+          }
+        }
+      ],
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "y": {
+              "field": "Country",
+              "type": "nominal",
+              "axis": null,
+              "title": ""
+            },
+            "x": {
+              "field": "Animal Products",
+              "title": "Energy intake from animal products(%)",
+              "type": "quantitative",
+              "sort": "descending"
+            },
+            "color": {
+              "field": "Country",
+              "scale": {
+                "range": [
+                   "#1f77b4",
+          "#ff7f0e",
+          "#ff7f86",
+          "#d62728",
+          "#9467bd",
+          "#8c564b",
+          "#a6cee3"
+                ]
+              },
+              "legend": "Country"
+            },
+            "tooltip": [
+              {"field": "Country", "type": "nominal", "title": "Country Name:"},
+              {
+                "field": "Animal Products",
+                "type": "quantitative",
+                "title": "Energy intake from Animal Products in %:  "
+              }
+            ],
+            "select": {"type": "point", "on": "mouseover"}
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 5
+          },
+          "encoding": {
+            "x": {"field": "Animal Products", "type": "quantitative"},
+            "y": {"field": "Country", "type": "nominal"},
+            "text": {
+              "field": "Animal Products",
+              "type": "quantitative",
+              "format": ".1f"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "filter": {
+            "field": "Country",
+            "oneOf": [
+              "China",
+              "India",
+              "Australia",
+              "Brazil",
+              "United States of America",
+              "Canada",
+              "Indonesia"
+            ]
+          }
+        }
+      ],
+      "layer": [
+        {
+          "mark": "bar",
+          "encoding": {
+            "y": {"field": "Country", "title": null, "axis": null},
+            "x": {
+              "field": "Vegetal Products",
+              "title": "Energy intake from vegetal products(%)",
+              "axis": {"format": "s"},
+              "type": "quantitative"
+            },
+            "color": {"field": "Country", "scale": {
+              "range": [
+                "#1f77b4",
+                "#ff7f0e",
+                "#ff7f86",
+                "#d62728",
+                "#9467bd",
+                "#8c564b",
+                "#a6cee3"
+              ]
+            }, "legend": null},
+            "tooltip": [
+              {"field": "Country", "type": "nominal", "title": "Country Name:"},
+              {
+                "field": "Vegetal Products",
+                "type": "quantitative",
+                "title": "Energy intake from Vegetal Products in %:  "
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 5
+          },
+          "encoding": {
+            "x": {"field": "Vegetal Products", "type": "quantitative"},
+            "y": {"field": "Country", "type": "nominal"},
+            "text": {
+              "field": "Vegetal Products",
+              "type": "quantitative",
+              "format": ".1f"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"grid": false}}
+}
